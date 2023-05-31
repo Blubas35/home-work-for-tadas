@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Container from '../Components/Container/Container'
+import Form from '../Components/Form/Form'
+import AsapResults from '../Components/ASAPResults/AsapResults'
 
 const Task = () => {
 
@@ -56,7 +58,6 @@ const Task = () => {
         let time = []
 
         busyHours.map(hours => {
-            console.log(hours)
             const fas = 24 - sleepTime - hours
             time.push(fas)
         })
@@ -82,7 +83,7 @@ const Task = () => {
         }
 
         setTaskSchedule(schedule);
-    }, [freeTime])
+    }, [freeTime], [totalHours], [daysLeft])
 
     // this function formats day
     function formatDate(index) {
@@ -95,70 +96,27 @@ const Task = () => {
 
     return (
         <Container>
-            <form onSubmit={submitHandler}>
-                <div>
-                    <label className={totalHours ? '' : 'required'} htmlFor='total-hours'>How many hours does it take to finish this task?</label>
-                    <input type='number' id='total-hours' onChange={totalHoursHandler}></input>
-                </div>
-                <div>
-                    <label htmlFor='sleep-hours'>Your usual sleep time</label>
-                    <input type='number' id='sleep-hours' onChange={sleepHoursHandler} value={sleepTime}></input>
-                </div>
-                <div>
-                    <label htmlFor='deadline'>When is the deadline?</label>
-                    <input type='date' id='deadline' onChange={deadlineHandler}></input>
-                </div>
-                {/* <div>
-                    <label htmlFor='free-hours'>How many hours per day could you dedicate to this task? </label>
-                    <input type='number' id='free-hours'></input>
-                </div> */}
-                {/* generates busy hour inputs based on days remaining */}
-                {daysLeft && totalHours.length > 0 && (
-                    <>
-                        <div>{daysLeft ? `Days left until deadline: ${daysLeft}` : ''}</div>
-                        <div className='busy-inputs'>
-                            <h2 className='title'>How many busy hours on day:</h2>
+            <Form
+                onSubmit={submitHandler}
+                totalHours={totalHours}
+                totalOnChange={totalHoursHandler}
+                sleepOnChange={sleepHoursHandler}
+                sleepTime={sleepTime}
+                deadlineOnChange={deadlineHandler}
+                daysLeft={daysLeft}
+                busyHours={busyHours}
+                formatDate={formatDate}
+                busyOnChange={busyHoursHandler}
+            />
 
-                            {busyHours.map((hours, index) => {
-                                const formattedDate = formatDate(index)
-
-                                return (
-                                    <div key={index}>
-                                        <h3>{formattedDate}</h3>
-                                        <label htmlFor={`busy-hours-${index}`}>Busy hours that day?</label>
-                                        <input type='number' value={hours} onChange={(e) => busyHoursHandler(e, index)} ></input>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </>
-                )}
-                <button type='submit'>Submit</button>
-                {/* <button type='reset'>Reset</button> */}
-            </form>
             {showResults &&
-                <div className='result-wrapper'>
-                    {enoughTime ? (
-                        <>
-                            <h2 className='title'>Congratulations! You do have enough time to finish this task in time</h2>
-                            <h3 className='sub-title'>Recommended time to spend on each day to complete this task ASAP</h3>
-                            <ul>
-                                {taskSchedule.map((item) => {
-                                    const index = item.day - 1
-                                    const formattedDate = formatDate(index)
-
-                                    return (
-                                        <>
-                                            <li key={item.day}>On day {formattedDate}: {item.hours} hours</li>
-                                        </>
-                                    )
-                                })}
-                            </ul>
-                        </>
-                    ) : (
-                        <h2 className='title'>Unfortunately based on these inputs you do not have enough time to finish this task</h2>
-                    )}
-                </div>
+                <>
+                    <AsapResults
+                    enoughTime={enoughTime}
+                    taskSchedule={taskSchedule}
+                    formatDate={formatDate}
+                    />
+                </>
             }
 
         </Container>
