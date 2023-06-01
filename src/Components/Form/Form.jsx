@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Form = ({ onSubmit, totalHours, totalOnChange, sleepOnChange, sleepTime, deadlineOnChange, daysLeft, busyHours, formatDate, busyOnChange }) => {
+const Form = ({ onSubmit, totalHours, totalOnChange, sleepOnChange, sleepTime, deadlineOnChange, daysLeft, busyHours, formatDate, busyOnChange, resetHandler }) => {
     return (
         <form onSubmit={onSubmit}>
             <div>
@@ -37,7 +37,7 @@ const Form = ({ onSubmit, totalHours, totalOnChange, sleepOnChange, sleepTime, d
                 </>
             )}
             <button type='submit'>Submit</button>
-            {/* <button type='reset'>Reset</button> */}
+            <button type='reset' onClick={resetHandler}>Reset</button>
         </form>
     )
 }

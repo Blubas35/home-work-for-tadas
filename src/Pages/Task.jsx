@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Container from '../Components/Container/Container'
 import Form from '../Components/Form/Form'
 import AsapResults from '../Components/ASAPResults/AsapResults'
+import { formatDate } from '../Components/Function/FormatDate'
 
 const Task = () => {
 
@@ -38,14 +39,37 @@ const Task = () => {
         setShowResults(false)
         setBusyHours(updatedBusyHours);
     };
+    const resetHandler = () => {
+        setTotalHours('');
+        setSleepTime(8);
+        setDaysLeft('');
+        setBusyHours([]);
+        setFreeTime([]);
+        setEnoughTime(null);
+        setShowResults(false);
+        setTaskSchedule([]);
+    }
     // ideja padaryti viena button allocate time equally
     // o kita i want to finish task as fast as possible
+
+    // this is where we calculate how many free time does user have
+    useEffect(() => {
+        let time = []
+        busyHours.map(hours => {
+            const fas = 24 - sleepTime - hours
+            time.push(fas)
+            return fas
+        })
+        setFreeTime(time)
+    }, [busyHours, sleepTime])
+
     const submitHandler = (e) => {
         e.preventDefault()
-        const stringToNumbers = busyHours.map(str => Number(str))
-        const totalBusyHours = stringToNumbers.reduce((accumulator, currentValue) => accumulator + currentValue)
 
-        if (totalBusyHours >= totalHours) {
+        const totalFreeHours = freeTime.reduce((accumulator, currentValue) => accumulator + currentValue)
+
+        // check if user has enough free time to finish task
+        if (totalFreeHours >= totalHours) {
             setEnoughTime(true)
             setShowResults(true)
 
@@ -53,15 +77,6 @@ const Task = () => {
             setEnoughTime(false)
             setShowResults(true)
         }
-
-        // this is where we calculate how many free time does user have
-        let time = []
-
-        busyHours.map(hours => {
-            const fas = 24 - sleepTime - hours
-            time.push(fas)
-        })
-        setFreeTime(time)
     }
 
     // this is where we calculate the schedule for user to complete his task in time
@@ -83,16 +98,7 @@ const Task = () => {
         }
 
         setTaskSchedule(schedule);
-    }, [freeTime], [totalHours], [daysLeft])
-
-    // this function formats day
-    function formatDate(index) {
-        const currentDate = new Date();
-        currentDate.setDate(currentDate.getDate() + index);
-        // Added index to current date to get the date for each day
-        const formattedDate = `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
-        return formattedDate
-    }
+    }, [freeTime, totalHours, daysLeft])
 
     return (
         <Container>
@@ -107,14 +113,15 @@ const Task = () => {
                 busyHours={busyHours}
                 formatDate={formatDate}
                 busyOnChange={busyHoursHandler}
+                resetHandler={resetHandler}
             />
 
             {showResults &&
                 <>
                     <AsapResults
-                    enoughTime={enoughTime}
-                    taskSchedule={taskSchedule}
-                    formatDate={formatDate}
+                        enoughTime={enoughTime}
+                        taskSchedule={taskSchedule}
+                        formatDate={formatDate}
                     />
                 </>
             }
