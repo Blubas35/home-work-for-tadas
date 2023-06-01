@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Container from '../Components/Container/Container'
-import Form from '../Components/Form/Form'
-import AsapResults from '../Components/ASAPResults/AsapResults'
-import { formatDate } from '../Components/Function/FormatDate'
+import Container from '../../Components/Container/Container'
+import Form from '../../Components/Form/Form'
+import AsapResults from '../../Components/ASAPResults/AsapResults'
+import { formatDate } from '../../Components/Function/FormatDate'
+import './Style/Task.css'
 
 const Task = () => {
     // const initialValues = { totalHours: '', sleepTime: 8,  }
@@ -152,30 +153,32 @@ const Task = () => {
 
     return (
         <Container>
-            <Form
-                onSubmit={submitHandler}
-                totalHours={totalHours}
-                totalOnChange={totalHoursHandler}
-                sleepOnChange={sleepHoursHandler}
-                sleepTime={sleepTime}
-                deadlineOnChange={deadlineHandler}
-                daysLeft={daysLeft}
-                busyHours={busyHours}
-                formatDate={formatDate}
-                busyOnChange={busyHoursHandler}
-                resetHandler={resetHandler}
-                errors={errors}
-            />
+            <div className='content-wrapper'>
+                <Form
+                    onSubmit={submitHandler}
+                    totalHours={totalHours}
+                    totalOnChange={totalHoursHandler}
+                    sleepOnChange={sleepHoursHandler}
+                    sleepTime={sleepTime}
+                    deadlineOnChange={deadlineHandler}
+                    daysLeft={daysLeft}
+                    busyHours={busyHours}
+                    formatDate={formatDate}
+                    busyOnChange={busyHoursHandler}
+                    resetHandler={resetHandler}
+                    errors={errors}
+                />
 
-            {showResults &&
-                <>
-                    <AsapResults
-                        enoughTime={enoughTime}
-                        taskSchedule={taskSchedule}
-                        formatDate={formatDate}
-                    />
-                </>
-            }
+                {showResults &&
+                    <>
+                        <AsapResults
+                            enoughTime={enoughTime}
+                            taskSchedule={taskSchedule}
+                            formatDate={formatDate}
+                        />
+                    </>
+                }
+            </div>
 
         </Container>
     )

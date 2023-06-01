@@ -1,0 +1,9 @@
+.content-wrapper {
+    // display: flex;
+    // flex-direction: row-reverse;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+}

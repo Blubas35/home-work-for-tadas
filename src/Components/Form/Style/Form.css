@@ -1,0 +1,19 @@
+.main-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  align-items: center;
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
+.main-form .initial-inputs {
+  max-width: 80%;
+}
+.main-form .initial-inputs .form-control {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+.main-form .initial-inputs .form-control .input {
+  width: 50%;
+}/*# sourceMappingURL=Form.css.map */

@@ -1,4 +1,5 @@
 import React from 'react'
+import './Style/AsapResults.css'
 
 const AsapResults = ({ enoughTime, taskSchedule, formatDate }) => {
     return (
