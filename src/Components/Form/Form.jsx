@@ -1,7 +1,7 @@
 import React from 'react'
 import './Style/Form.css'
 
-const Form = ({ onSubmit, totalHours, totalOnChange, sleepOnChange, sleepTime, deadline, deadlineOnChange, initialSubmitHandler, busyInputs, daysLeft, busyHours, formatDate, busyOnChange, resetHandler, errors }) => {
+const Form = ({ onSubmit, totalHours, totalOnChange, sleepOnChange, sleepTime, deadline, deadlineOnChange, initialSubmitHandler, busyInputs, daysLeft, backButtonHandler, busyHours, formatDate, busyOnChange, resetHandler, errors }) => {
     return (
         <form className='main-form'>
             <div className='initial-inputs'>
@@ -37,16 +37,16 @@ const Form = ({ onSubmit, totalHours, totalOnChange, sleepOnChange, sleepTime, d
                 {!errors.daysLeft && busyInputs && daysLeft && totalHours > 0 && sleepTime > 0 && sleepTime < 24 && (
                     <>
                         <div className='back-button-wrapper'>
-                            <button className='back-button'>
+                            <button className='back-button' onClick={backButtonHandler}>
                                 <span></span>
                             </button>
                         </div>
 
-                        <div className=''>
+                        <div className='days-left-wrapper'>
                             <h3>{daysLeft ? `Days left until deadline: ${daysLeft}` : ''}</h3>
                         </div>
+                        <h2 className='title'>State your busy hours on day:</h2>
                         <div className='busy-inputs'>
-                            <h2 className='title'>How many busy hours on day:</h2>
                             {busyHours.map((hours, index) => {
                                 if (hours === '') {
                                     hours = '0'
@@ -55,8 +55,8 @@ const Form = ({ onSubmit, totalHours, totalOnChange, sleepOnChange, sleepTime, d
 
                                 return (
                                     <div className='form-control' key={index}>
-                                        <h3>{formattedDate}</h3>
-                                        <label className={errors.busyHours[index] ? 'required' : ''} htmlFor={`busy-hours-${index}`}>Busy hours that day?</label>
+                                        <h3 className='date'>{formattedDate}</h3>
+                                        <label className={errors.busyHours[index] ? 'required' : ''} htmlFor={`busy-hours-${index}`}>Busy hours</label>
                                         <input className={errors.busyHours[index] ? 'required input' : 'input'} type='number' value={hours} onChange={(e) => busyOnChange(e, index)} ></input>
                                         {errors.busyHours[index] && (
                                             <span className={errors.busyHours[index] ? 'required' : ''}>Please enter valid number</span>

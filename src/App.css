@@ -6,3 +6,7 @@
 .App {
     background-color: lightgray;
 }
+
+body {
+    font-family: 'Roboto', sans-serif;
+}

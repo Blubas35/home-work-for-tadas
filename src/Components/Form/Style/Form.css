@@ -7,7 +7,7 @@
   grid-row: 1/2;
 }
 .main-form .initial-inputs {
-  max-width: 80%;
+  max-width: 100%;
 }
 .main-form .initial-inputs .form-control {
   display: flex;
@@ -22,4 +22,25 @@
   width: 10px;
   display: block;
   height: 10px;
+}
+.main-form .initial-inputs .busy-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 25px;
+}
+.main-form .initial-inputs .busy-inputs .title {
+  grid-row: 1/2;
+  grid-column: 1/end;
+  margin: 0;
+  place-self: center;
+}
+.main-form .initial-inputs .busy-inputs .form-control {
+  row-gap: 10px;
+  align-items: center;
+}
+.main-form .initial-inputs .busy-inputs .form-control .date {
+  margin: 0;
+}
+.main-form .initial-inputs .busy-inputs .form-control .input {
+  width: 100%;
 }/*# sourceMappingURL=Form.css.map */

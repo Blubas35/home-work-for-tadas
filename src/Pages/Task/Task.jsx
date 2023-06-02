@@ -4,6 +4,8 @@ import Form from '../../Components/Form/Form'
 import AsapResults from '../../Components/ASAPResults/AsapResults'
 import { formatDate } from '../../Components/Function/FormatDate'
 import './Style/Task.css'
+import PageTitle from '../../Components/PageTitle/PageTitle'
+import Clock from '../../Components/Clock/Clock'
 
 const Task = () => {
     // const initialValues = { totalHours: '', sleepTime: 8,  }
@@ -97,6 +99,10 @@ const Task = () => {
         e.preventDefault()
         setShowBusyInputs(true)
     }
+    const backButtonHandler = () => {
+        setShowBusyInputs(false)
+        setShowResults(false)
+    }
 
     // ideja padaryti viena button allocate time equally
     // o kita i want to finish task as fast as possible
@@ -161,6 +167,13 @@ const Task = () => {
 
     return (
         <Container>
+
+            <PageTitle
+                title='Assignment due date calculator and planner!'
+                // subTitle='Plan your assignments with this tool!'
+                subTitle='With the help of this tool never miss your assignments again!'
+            />
+
             <div className='content-wrapper'>
                 <Form
                     onSubmit={submitHandler}
@@ -176,19 +189,23 @@ const Task = () => {
                     busyOnChange={busyHoursHandler}
                     resetHandler={resetHandler}
                     errors={errors}
-                    initialSubmitHandler = {initialSubmitHandler}
+                    initialSubmitHandler={initialSubmitHandler}
                     busyInputs={showBusyInputs}
+                    backButtonHandler={backButtonHandler}
                 />
 
-                {showResults &&
-                    <>
+
+                <div className='left-side'>
+                    <Clock />
+                    {showResults &&
                         <AsapResults
                             enoughTime={enoughTime}
                             taskSchedule={taskSchedule}
                             formatDate={formatDate}
                         />
-                    </>
-                }
+                    }
+                </div>
+
             </div>
 
         </Container>
