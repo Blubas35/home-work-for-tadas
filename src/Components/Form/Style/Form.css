@@ -16,4 +16,10 @@
 }
 .main-form .initial-inputs .form-control .input {
   width: 50%;
+}
+.main-form .initial-inputs .back-button-wrapper .back-button span {
+  background-image: url("../../../Assets/arrow-go-back-line.svg");
+  width: 10px;
+  display: block;
+  height: 10px;
 }/*# sourceMappingURL=Form.css.map */

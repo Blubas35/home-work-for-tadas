@@ -8,12 +8,14 @@ import './Style/Task.css'
 const Task = () => {
     // const initialValues = { totalHours: '', sleepTime: 8,  }
     const [totalHours, setTotalHours] = useState('')
+    const [deadline, setDeadline] = useState('')
     const [sleepTime, setSleepTime] = useState(8)
     const [daysLeft, setDaysLeft] = useState('')
     const [busyHours, setBusyHours] = useState([]);
     const [freeTime, setFreeTime] = useState([]) /*how many hours on certain day are free to complete the task*/
     const [enoughTime, setEnoughTime] = useState(null) /*This state is used to render answer if user can finish task in time*/
     const [showResults, setShowResults] = useState(false) /*this state is used to render result wrapper with recommended hours*/
+    const [showBusyInputs, setShowBusyInputs] = useState(false)
     const [taskSchedule, setTaskSchedule] = useState([]); /*this state is used to create recommended schedule to complete task ASAP*/
     const [errors, setErrors] = useState({
         totalHours: false,
@@ -24,6 +26,7 @@ const Task = () => {
 
     const resetHandler = () => {
         setTotalHours('');
+        setDeadline('')
         setSleepTime(8);
         setDaysLeft('');
         setBusyHours([]);
@@ -45,6 +48,7 @@ const Task = () => {
     }
 
     const deadlineHandler = (e) => {
+        setDeadline(e.target.value)
         const today = new Date();
         const deadlineDate = new Date(e.target.value);
         const timeDiff = deadlineDate.getTime() - today.getTime();
@@ -82,13 +86,17 @@ const Task = () => {
         const updatedErrors = [...errors.busyHours];
         updatedErrors[index] = false;
 
-        if (value[index] < 0 || value[index] > (24 - sleepTime)) {
+        if (value[index] < 0 || value[index] > (24 - sleepTime) || value[index].length < 1) {
             updatedErrors[index] = true; // Set the error for the current input
         }
         setBusyHours(value);
         setErrors({ ...errors, busyHours: updatedErrors });
         setShowResults(false);
     };
+    const initialSubmitHandler = (e) => {
+        e.preventDefault()
+        setShowBusyInputs(true)
+    }
 
     // ideja padaryti viena button allocate time equally
     // o kita i want to finish task as fast as possible
@@ -160,6 +168,7 @@ const Task = () => {
                     totalOnChange={totalHoursHandler}
                     sleepOnChange={sleepHoursHandler}
                     sleepTime={sleepTime}
+                    deadline={deadline}
                     deadlineOnChange={deadlineHandler}
                     daysLeft={daysLeft}
                     busyHours={busyHours}
@@ -167,6 +176,8 @@ const Task = () => {
                     busyOnChange={busyHoursHandler}
                     resetHandler={resetHandler}
                     errors={errors}
+                    initialSubmitHandler = {initialSubmitHandler}
+                    busyInputs={showBusyInputs}
                 />
 
                 {showResults &&
