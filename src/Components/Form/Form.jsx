@@ -1,7 +1,7 @@
 import React from 'react'
 import './Style/Form.css'
 
-const Form = ({ onSubmit, totalHours, totalOnChange, sleepOnChange, sleepTime, deadline, deadlineOnChange, initialSubmitHandler, busyInputs, daysLeft, backButtonHandler, busyHours, formatDate, busyOnChange, resetHandler, errors }) => {
+const Form = ({ onSubmit, totalHours, totalOnChange, sleepOnChange, sleepTime, deadline, deadlineOnChange, initialSubmitHandler, busyInputs, handleRadioChange, radio, daysLeft, backButtonHandler, busyHours, formatDate, busyOnChange, resetHandler, errors }) => {
     return (
         <form className='main-form'>
             <div className='initial-inputs'>
@@ -28,6 +28,31 @@ const Form = ({ onSubmit, totalHours, totalOnChange, sleepOnChange, sleepTime, d
                                 <span className={errors.daysLeft ? 'required' : ''}>Please enter valid date</span>
                             )}
                         </div>
+                        <fieldset>
+                            <legend>Select the workload:</legend>
+                            <div className='form-control'>
+                                <label htmlFor='asap'>ASAP</label>
+                                <input
+                                    type='radio'
+                                    id='asap'
+                                    value='asap'
+                                    name='workload'
+                                    checked={radio === 'asap'}
+                                    onChange={handleRadioChange}
+                                ></input>
+                            </div>
+                            <div className='form-control'>
+                                <label htmlFor='equal'>Equal</label>
+                                <input
+                                    type='radio'
+                                    id='equal'
+                                    value='equal'
+                                    name='workload'
+                                    checked={radio === 'equal'}
+                                    onChange={handleRadioChange}
+                                ></input>
+                            </div>
+                        </fieldset>
                         <div className='button-wrapper'>
                             <button onClick={initialSubmitHandler}>Confirm</button>
                         </div>

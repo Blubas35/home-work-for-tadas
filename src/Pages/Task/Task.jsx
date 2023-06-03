@@ -6,6 +6,7 @@ import { formatDate } from '../../Components/Function/FormatDate'
 import './Style/Task.css'
 import PageTitle from '../../Components/PageTitle/PageTitle'
 import Clock from '../../Components/Clock/Clock'
+import leftSide from '../../Assets/left-side.svg'
 
 const Task = () => {
     // const initialValues = { totalHours: '', sleepTime: 8,  }
@@ -19,6 +20,7 @@ const Task = () => {
     const [showResults, setShowResults] = useState(false) /*this state is used to render result wrapper with recommended hours*/
     const [showBusyInputs, setShowBusyInputs] = useState(false)
     const [taskSchedule, setTaskSchedule] = useState([]); /*this state is used to create recommended schedule to complete task ASAP*/
+    const [radio, setRadio] = useState('')
     const [errors, setErrors] = useState({
         totalHours: false,
         sleepTime: false,
@@ -35,8 +37,14 @@ const Task = () => {
         setFreeTime([]);
         setEnoughTime(null);
         setShowResults(false);
+        setShowBusyInputs(false)
         setTaskSchedule([]);
+        setRadio('')
     }
+
+    const handleRadioChange = (e) => {
+        setRadio(e.target.value);
+    };
 
     const totalHoursHandler = (e) => {
         const value = e.target.value;
@@ -44,7 +52,7 @@ const Task = () => {
             setTotalHours(value);
             setErrors({ ...errors, totalHours: false })
         }
-        if (value <= 0) {
+        if (value <= 0 || value.length < 1) {
             setErrors({ ...errors, totalHours: true })
         }
     }
@@ -146,24 +154,49 @@ const Task = () => {
 
     // this is where we calculate the schedule for user to complete his task in time
     useEffect(() => {
-        let remainingTime = totalHours;
-        let schedule = [];
 
-        for (let i = 0; i < daysLeft; i++) {
-            if (remainingTime <= 0) {
-                break;
+        if (radio === 'asap') {
+            let remainingTime = totalHours;
+            let schedule = [];
+    
+            for (let i = 0; i < daysLeft; i++) {
+                if (remainingTime <= 0) {
+                    break;
+                }
+                const availableTime = Math.min(freeTime[i] || 0, remainingTime);
+                schedule.push({
+                    day: i + 1,
+                    hours: availableTime
+                });
+    
+                remainingTime -= availableTime;
             }
-            const availableTime = Math.min(freeTime[i] || 0, remainingTime);
-            schedule.push({
-                day: i + 1,
-                hours: availableTime
-            });
-
-            remainingTime -= availableTime;
+    
+            setTaskSchedule(schedule);
+    
         }
-
-        setTaskSchedule(schedule);
-    }, [freeTime, totalHours, daysLeft])
+    
+        if (radio === 'equal') {
+            const hoursPerDay = Math.ceil(totalHours / daysLeft); // calculate the number of hours per day, rounded up to the nearest integer
+            let remainingTime = totalHours;
+            let schedule = [];
+    
+            for (let i = 0; i < daysLeft; i++) {
+                if (remainingTime <= 0) {
+                    break;
+                }
+                const availableTime = Math.min(freeTime[i] || 0, remainingTime, hoursPerDay); // limit the number of hours worked per day to the hoursPerDay calculated above
+                schedule.push({
+                    day: i + 1,
+                    hours: availableTime
+                });
+    
+                remainingTime -= availableTime;
+            }
+    
+            setTaskSchedule(schedule);
+        }
+    }, [radio, freeTime, totalHours, daysLeft])
 
     return (
         <Container>
@@ -183,6 +216,8 @@ const Task = () => {
                     sleepTime={sleepTime}
                     deadline={deadline}
                     deadlineOnChange={deadlineHandler}
+                    handleRadioChange={handleRadioChange}
+                    radio={radio}
                     daysLeft={daysLeft}
                     busyHours={busyHours}
                     formatDate={formatDate}
@@ -196,7 +231,9 @@ const Task = () => {
 
 
                 <div className='left-side'>
-                    <Clock />
+                    <div className='image-wrapper'>
+                        <img src={leftSide} alt='planner and clock'></img>
+                    </div>
                     {showResults &&
                         <AsapResults
                             enoughTime={enoughTime}

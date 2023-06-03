@@ -1,7 +1,13 @@
 .title-wrapper {
   text-align: center;
 }
+.title-wrapper .main-title {
+  color: #D65B47;
+  font-size: 37px;
+  font-weight: 700;
+}
 .title-wrapper .sub-title {
-  font-size: 20px;
-  color: white;
+  font-weight: 400;
+  font-size: 25px;
+  color: #7396C0;
 }/*# sourceMappingURL=PageTitle.css.map */

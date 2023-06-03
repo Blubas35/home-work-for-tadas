@@ -17,6 +17,7 @@ const Demo2 = () => {
         const endDate = new Date(dueDate);
         const daysUntilDueDate = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
         /*+1 nes su sita funkcija skaiciuojant jeigu yra maziau negu 24h likusios tai rasys 0 zero days left*/
+        const hoursPerDay = Math.ceil(taskTime / daysUntilDueDate); // calculate the number of hours per day, rounded up to the nearest integer
         let remainingTime = taskTime;
         let schedule = [];
 
@@ -24,7 +25,7 @@ const Demo2 = () => {
             if (remainingTime <= 0) {
                 break;
             }
-            const availableTime = Math.min(freeTime[i] || 0, remainingTime);
+            const availableTime = Math.min(freeTime[i] || 0, remainingTime, hoursPerDay); // limit the number of hours worked per day to the hoursPerDay calculated above
             schedule.push({
                 day: i + 1,
                 hours: availableTime
@@ -35,6 +36,30 @@ const Demo2 = () => {
 
         setTaskSchedule(schedule);
     };
+
+    // const calculateTaskSchedule = () => {
+    //     const startDate = new Date();
+    //     const endDate = new Date(dueDate);
+    //     const daysUntilDueDate = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+    //     /*+1 nes su sita funkcija skaiciuojant jeigu yra maziau negu 24h likusios tai rasys 0 zero days left*/
+    //     let remainingTime = taskTime;
+    //     let schedule = [];
+
+    //     for (let i = 0; i < daysUntilDueDate; i++) {
+    //         if (remainingTime <= 0) {
+    //             break;
+    //         }
+    //         const availableTime = Math.min(freeTime[i] || 0, remainingTime);
+    //         schedule.push({
+    //             day: i + 1,
+    //             hours: availableTime
+    //         });
+
+    //         remainingTime -= availableTime;
+    //     }
+
+    //     setTaskSchedule(schedule);
+    // };
 
     return (
         <div>
