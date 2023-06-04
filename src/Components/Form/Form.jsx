@@ -4,11 +4,13 @@ import './Style/Form.css'
 const Form = ({ onSubmit, totalHours, totalOnChange, sleepOnChange, sleepTime, deadline, deadlineOnChange, initialSubmitHandler, busyInputs, handleRadioChange, radio, daysLeft, backButtonHandler, busyHours, formatDate, busyOnChange, resetHandler, errors }) => {
     return (
         <form className='main-form'>
-            <div className='initial-inputs'>
+            <div className={`initial-inputs ${busyInputs ? 'busy-inputs-wrapper' : ''}`}>
                 {!busyInputs && (
                     <>
                         <div className='form-control'>
-                            <label className={errors.totalHours ? 'required' : ''} htmlFor='total-hours'>How many hours does it take to finish this task?</label>
+                            <label className={errors.totalHours ? 'required' : ''} htmlFor='total-hours'>How many hours does it take to finish this task?
+                            <span className='tooltip'></span>
+                            </label>
                             <input className={errors.totalHours ? 'required input' : 'input'} type='number' id='total-hours' onChange={totalOnChange} value={totalHours}></input>
                             {errors.totalHours && (
                                 <span className={errors.totalHours ? 'required' : ''}>Please enter valid number</span>
@@ -28,8 +30,11 @@ const Form = ({ onSubmit, totalHours, totalOnChange, sleepOnChange, sleepTime, d
                                 <span className={errors.daysLeft ? 'required' : ''}>Please enter valid date</span>
                             )}
                         </div>
+                        
                         <fieldset>
-                            <legend>Select the workload:</legend>
+                            <legend>Select the workload:
+                            <span className='tooltip'></span>
+                            </legend>
                             <div className='form-control'>
                                 <label htmlFor='asap'>ASAP</label>
                                 <input
@@ -53,6 +58,9 @@ const Form = ({ onSubmit, totalHours, totalOnChange, sleepOnChange, sleepTime, d
                                 ></input>
                             </div>
                         </fieldset>
+                        {errors.radio && (
+                                <span className={errors.radio ? 'required' : ''}>This input is required</span>
+                            )}
                         <div className='button-wrapper'>
                             <button onClick={initialSubmitHandler}>Confirm</button>
                         </div>
@@ -68,9 +76,13 @@ const Form = ({ onSubmit, totalHours, totalOnChange, sleepOnChange, sleepTime, d
                         </div>
 
                         <div className='days-left-wrapper'>
-                            <h3>{daysLeft ? `Days left until deadline: ${daysLeft}` : ''}</h3>
+                            <h3>Days left until deadline: </h3>
+                            <span>{daysLeft}</span>
                         </div>
-                        <h2 className='title'>State your busy hours on day:</h2>
+
+                        <h2 className='title'>State your busy hours on day:
+                        <span className='tooltip'></span>
+                        </h2>
                         <div className='busy-inputs'>
                             {busyHours.map((hours, index) => {
                                 if (hours === '') {
@@ -91,8 +103,8 @@ const Form = ({ onSubmit, totalHours, totalOnChange, sleepOnChange, sleepTime, d
                             })}
                         </div>
                         <div className='button-wrapper'>
-                            <button type='submit' onClick={onSubmit}>Submit</button>
-                            <button type='reset' onClick={resetHandler}>Reset</button>
+                            <button className='submit-button' type='submit' onClick={onSubmit}>Submit</button>
+                            <button className='reset-button' type='reset' onClick={resetHandler}>Reset</button>
                         </div>
                     </>
                 )}

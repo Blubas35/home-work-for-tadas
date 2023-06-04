@@ -1,15 +1,18 @@
 .title-wrapper {
-    text-align: center;
+  text-align: center;
+  margin-bottom: 85px;
 
-    .main-title {
-        color: #D65B47;
-        font-size: 37px;
-        font-weight: 700;
-    }
+  .main-title {
+    color: #d65b47;
+    font-size: 37px;
+    font-weight: 700;
+    text-transform: none;
+  }
 
-    .sub-title {
-        font-weight: 400;
-        font-size: 25px;
-        color: #7396C0;
-    }
+  .sub-title {
+    font-weight: 400;
+    font-size: 25px;
+    color: #7396c0;
+    text-transform: none;
+  } 
 }

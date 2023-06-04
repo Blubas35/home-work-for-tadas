@@ -1,4 +1,31 @@
 .result-wrapper {
   grid-column: 1/2;
   grid-row: 1/2;
+}
+.result-wrapper .title {
+  color: #312d3f;
+}
+.result-wrapper .title .first-word {
+  color: #d65b47;
+}
+.result-wrapper .sub-title {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-transform: uppercase;
+  color: #d65b47;
+}
+.result-wrapper ul {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.result-wrapper ul li {
+  background: #c7e3f8;
+  box-shadow: inset -4px -3px 4px rgba(255, 255, 255, 0.25), inset 3px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  padding: 4px 14px;
 }/*# sourceMappingURL=AsapResults.css.map */

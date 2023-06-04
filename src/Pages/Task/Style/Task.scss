@@ -1,29 +1,61 @@
+$breakpoint-small: 768px;
+$breakpoint-mobile: 520px;
+
+body {
+  text-transform: uppercase;
+}
+
 .content-wrapper {
-    box-shadow: -9px -9px 9px 0px rgba(142, 190, 237, 0.25), 9px 9px 9px 0px rgba(255, 124, 110, 0.25);
-    padding: 50px 30px;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 1fr;
-    border-radius: 50px;
-    border: 1px solid white;
+  box-shadow: -9px -9px 9px 0px rgba(142, 190, 237, 0.25),
+    9px 9px 9px 0px rgba(255, 124, 110, 0.25);
+  padding: 50px 30px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
+  border-radius: 50px;
+  border: 1px solid white;
+  column-gap: 60px;
+  @media screen and (max-width: $breakpoint-small) {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  @media screen and (max-width: $breakpoint-mobile) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .left-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 15px;
+    position: relative;
 
-    .left-side {
+    .image-wrapper {
+      @media screen and (max-width: $breakpoint-small) {
         display: flex;
-        flex-direction: column;
         justify-content: center;
-        row-gap: 15px;
-        position: relative;
-
-        ::before {
-            content: "";
-            position: absolute;
-            top: 0%;
-            bottom: 0%;
-            left: 84%;
-            width: 5px;
-            background-color: #EFEFEF;
-            box-shadow: inset -1px -1px 4px #FFFFFF, inset 1px 1px 4px rgba(0, 0, 0, 0.25);
-            border-radius: 11px;
+        img {
+            @media screen and (max-width: $breakpoint-small) {
+                width: 100%;
+            }
         }
+      }
     }
+    ::before {
+      content: "";
+      position: absolute;
+      top: 0%;
+      bottom: 0%;
+      left: 105%;
+      width: 5px;
+      background-color: #efefef;
+      box-shadow: inset -1px -1px 4px #ffffff,
+        inset 1px 1px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 11px;
+
+      @media screen and (max-width: $breakpoint-small) {
+        display: none;
+      }
+    }
+  }
 }
