@@ -10,27 +10,20 @@ import leftSide from "../../Assets/left-side.svg";
 export const TaskContext = createContext();
 
 const Task = () => {
-  // const initialValues = { totalHours: '', sleepTime: 8,  }
   const [totalHours, setTotalHours] = useState("");
   const [deadline, setDeadline] = useState("");
   const [sleepTime, setSleepTime] = useState(8);
   const [daysLeft, setDaysLeft] = useState("");
   const [busyHours, setBusyHours] = useState([]);
-  const [freeTime, setFreeTime] = useState(
-    []
-  ); /*how many hours on certain day are free to complete the task*/
-  const [enoughTime, setEnoughTime] =
-    useState(
-      null
-    ); /*This state is used to render answer if user can finish task in time*/
-  const [showResults, setShowResults] =
-    useState(
-      false
-    ); /*this state is used to render result wrapper with recommended hours*/
+  /*how many hours on certain day are free to complete the task*/
+  const [freeTime, setFreeTime] = useState([]);
+  /*This state is used to render answer if user can finish task in time*/
+  const [enoughTime, setEnoughTime] = useState(null);
+  /*this state is used to render result wrapper with recommended hours*/
+  const [showResults, setShowResults] = useState(false);
   const [showBusyInputs, setShowBusyInputs] = useState(false);
-  const [taskSchedule, setTaskSchedule] = useState(
-    []
-  ); /*this state is used to create recommended schedule to complete task ASAP*/
+  /*this state is used to create recommended schedule to complete task ASAP*/
+  const [taskSchedule, setTaskSchedule] = useState([]);
   const [radio, setRadio] = useState("");
   const [errors, setErrors] = useState({
     totalHours: false,
