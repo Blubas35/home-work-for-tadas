@@ -1,5 +1,6 @@
 $breakpoint-small: 768px;
 $breakpoint-mobile: 520px;
+
 *::before,
 *::after {
   box-sizing: border-box;
@@ -31,61 +32,6 @@ $breakpoint-mobile: 520px;
     row-gap: 20px;
     @media screen and (max-width: $breakpoint-small) {
       place-self: center;
-    }
-
-    .form-control {
-      display: flex;
-      flex-direction: column;
-      row-gap: 5px;
-
-      label {
-        color: #d65b47;
-        font-weight: 700;
-        font-size: 16px;
-        line-height: 19px;
-        .tooltip {
-          display: inline-block;
-          width: 16px;
-          height: 16px;
-          margin-left: 5px;
-          background-image: url("../../../Assets/QuestionMark.svg");
-          background-size: cover;
-          cursor: pointer;
-          position: relative;
-        }
-        :hover::after {
-          content: "According to wikiHow it takes 3-4 hours to write 1000 words 'Typing 1,000 words with research, editing, and formatting: 3–4 hours'";
-          position: absolute;
-          text-transform: none;
-          top: 100%;
-          left: 50%;
-          transform: translateX(-50%);
-          padding: 5px;
-          background-color: #f2f2f2;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          white-space: nowrap;
-          z-index: 10;
-          white-space: normal;
-          word-wrap: break-word;
-          width: 250px;
-        }
-      }
-
-      .input {
-        border-radius: 15px;
-        background-color: #c7e3f8;
-        box-shadow: inset -4px -3px 4px rgba(255, 255, 255, 0.25),
-          inset 3px 4px 4px rgba(0, 0, 0, 0.25);
-        border: 0;
-        padding: 10px 20px;
-        font-size: 15px;
-        line-height: 18px;
-
-        /* identical to box height */
-
-        color: #312d3f;
-      }
     }
 
     fieldset {
@@ -164,118 +110,6 @@ $breakpoint-mobile: 520px;
         letter-spacing: 0.11em;
         color: #ffffff;
         cursor: pointer;
-      }
-    }
-
-    .back-button-wrapper {
-      .back-button {
-        padding: 5px 14px;
-        background: linear-gradient(90deg, #d65b47 0%, #ff7c6e 100%);
-        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 10px;
-        border: 0;
-        cursor: pointer;
-        span {
-          background-image: url("../../../Assets/Vector.svg");
-          //   background-image: url("../../../Assets/arrow-go-back-line.svg");
-          width: 17px;
-          display: block;
-          height: 15px;
-          background-repeat: no-repeat;
-        }
-      }
-    }
-    .days-left-wrapper {
-      display: flex;
-      align-items: center;
-      column-gap: 5px;
-      h3 {
-        font-weight: 700;
-        font-size: 16px;
-        line-height: 19px;
-        color: #d65b47;
-        margin: 0;
-      }
-      span {
-        font-weight: 700;
-        font-size: 16px;
-        line-height: 19px;
-      }
-    }
-    .title {
-      font-weight: 700;
-      font-size: 20px;
-      line-height: 23px;
-      color: #d65b47;
-      .tooltip {
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        margin-left: 5px;
-        background-image: url("../../../Assets/QuestionMark.svg");
-        background-size: cover;
-        cursor: pointer;
-        position: relative;
-      }
-      :hover::after {
-        content: "Each day state your busy hours (this includes: job, eating, gym, social activities etc.). Do not add sleep time as it was added in the previous form";
-        position: absolute;
-        text-transform: none;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 5px;
-        background-color: #f2f2f2;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        white-space: nowrap;
-        z-index: 10;
-        white-space: normal;
-        word-wrap: break-word;
-        width: 250px;
-      }
-    }
-
-    .busy-inputs {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 25px;
-      @media screen and (max-width: $breakpoint-mobile) {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .title {
-        grid-row: 1 / 2;
-        grid-column: 1 / end;
-        margin: 0;
-        place-self: center;
-      }
-
-      .form-control {
-        row-gap: 10px;
-        align-items: center;
-        background: #efefef;
-        box-shadow: inset -3px -4px 4px rgba(255, 255, 255, 0.25),
-          inset 3px 4px 5px rgba(0, 0, 0, 0.25);
-        border-radius: 15px;
-        padding: 10px;
-        .date {
-          margin: 0;
-        }
-
-        .input {
-          width: 75%;
-          padding: 10px;
-        }
-      }
-    }
-    .button-wrapper {
-      column-gap: 15px;
-      margin-top: 50px;
-
-      .submit-button,
-      .reset-button {
-        flex-grow: 1;
-        width: 100%;
       }
     }
   }

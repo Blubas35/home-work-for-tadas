@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import Container from "../../Components/Container/Container";
 import Form from "../../Components/Form/Form";
 import AsapResults from "../../Components/ASAPResults/AsapResults";
 import { formatDate } from "../../Components/Function/FormatDate";
 import "./Style/Task.css";
 import PageTitle from "../../Components/PageTitle/PageTitle";
-import Clock from "../../Components/Clock/Clock";
 import leftSide from "../../Assets/left-side.svg";
+
+export const TaskContext = createContext();
 
 const Task = () => {
   // const initialValues = { totalHours: '', sleepTime: 8,  }
@@ -38,7 +39,7 @@ const Task = () => {
     radio: false,
     busyHours: Array(busyHours.length).fill(false),
   });
-
+  // reset states
   const resetHandler = () => {
     setTotalHours("");
     setDeadline("");
@@ -239,50 +240,54 @@ const Task = () => {
     }
   }, [radio, freeTime, totalHours, daysLeft]);
 
-  return (
-    <Container>
-      <PageTitle
-        title="Assignment due date calculator and planner!"
-        // subTitle='Plan your assignments with this tool!'
-        subTitle="With the help of this tool never miss your assignments again!"
-      />
+  // create a context object to pass it for the component
+  const contextValues = {
+    submitHandler,
+    totalHours,
+    totalHoursHandler,
+    sleepTime,
+    sleepHoursHandler,
+    deadline,
+    deadlineHandler,
+    radio,
+    handleRadioChange,
+    daysLeft,
+    busyHours,
+    formatDate,
+    busyHoursHandler,
+    resetHandler,
+    errors,
+    initialSubmitHandler,
+    showBusyInputs,
+    backButtonHandler,
+  };
 
-      <div className="content-wrapper">
-        <Form
-          onSubmit={submitHandler}
-          totalHours={totalHours}
-          totalOnChange={totalHoursHandler}
-          sleepOnChange={sleepHoursHandler}
-          sleepTime={sleepTime}
-          deadline={deadline}
-          deadlineOnChange={deadlineHandler}
-          handleRadioChange={handleRadioChange}
-          radio={radio}
-          daysLeft={daysLeft}
-          busyHours={busyHours}
-          formatDate={formatDate}
-          busyOnChange={busyHoursHandler}
-          resetHandler={resetHandler}
-          errors={errors}
-          initialSubmitHandler={initialSubmitHandler}
-          busyInputs={showBusyInputs}
-          backButtonHandler={backButtonHandler}
+  return (
+    <TaskContext.Provider value={contextValues}>
+      <Container>
+        <PageTitle
+          title="Assignment due date calculator and planner!"
+          subTitle="With the help of this tool never miss your assignments again!"
         />
 
-        <div className="left-side">
-          <div className="image-wrapper">
-            <img src={leftSide} alt="planner and clock"></img>
+        <div className="content-wrapper">
+          <Form />
+
+          <div className="left-side">
+            <div className="image-wrapper">
+              <img src={leftSide} alt="planner and clock"></img>
+            </div>
+            {showResults && (
+              <AsapResults
+                enoughTime={enoughTime}
+                taskSchedule={taskSchedule}
+                formatDate={formatDate}
+              />
+            )}
           </div>
-          {showResults && (
-            <AsapResults
-              enoughTime={enoughTime}
-              taskSchedule={taskSchedule}
-              formatDate={formatDate}
-            />
-          )}
         </div>
-      </div>
-    </Container>
+      </Container>
+    </TaskContext.Provider>
   );
 };
 export default Task;
