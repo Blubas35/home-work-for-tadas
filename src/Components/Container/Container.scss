@@ -1,6 +1,13 @@
+$breakpoint-small: 768px;
+$breakpoint-mobile: 520px;
+
 .container {
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
     padding: 50px 30px;
+    @media screen and (max-width: $breakpoint-mobile) {
+        padding: 15px;
+     }
+
 }

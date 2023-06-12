@@ -94,6 +94,7 @@ $breakpoint-mobile: 520px;
     .button-wrapper {
       display: flex;
       justify-content: center;
+      align-items: center;
       @media screen and (max-width: $breakpoint-small) {
         flex-direction: column-reverse;
         row-gap: 25px;
