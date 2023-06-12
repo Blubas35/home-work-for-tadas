@@ -31,9 +31,11 @@ body {
     position: relative;
 
     .image-wrapper {
-      @media screen and (max-width: $breakpoint-small) {
+      .image-wrapper {
         display: flex;
         justify-content: center;
+    }
+      @media screen and (max-width: $breakpoint-small) {
         img {
             @media screen and (max-width: $breakpoint-small) {
                 width: 100%;
