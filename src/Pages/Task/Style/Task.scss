@@ -31,14 +31,14 @@ body {
     position: relative;
 
     .image-wrapper {
-        display: flex;
-        justify-content: center;
-        
+      display: flex;
+      justify-content: center;
+
       @media screen and (max-width: $breakpoint-small) {
         img {
-            @media screen and (max-width: $breakpoint-small) {
-                width: 100%;
-            }
+          @media screen and (max-width: $breakpoint-small) {
+            width: 100%;
+          }
         }
       }
     }

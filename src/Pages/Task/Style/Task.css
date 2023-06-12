@@ -32,11 +32,9 @@ body {
   row-gap: 15px;
   position: relative;
 }
-@media screen and (max-width: 768px) {
-  .content-wrapper .left-side .image-wrapper {
-    display: flex;
-    justify-content: center;
-  }
+.content-wrapper .left-side .image-wrapper {
+  display: flex;
+  justify-content: center;
 }
 @media screen and (max-width: 768px) and (max-width: 768px) {
   .content-wrapper .left-side .image-wrapper img {
