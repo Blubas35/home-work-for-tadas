@@ -144,9 +144,6 @@ const Task = () => {
     setShowResults(false);
   };
 
-  // ideja padaryti viena button allocate time equally
-  // o kita i want to finish task as fast as possible
-
   // this is where we calculate how many free time does user have
   useEffect(() => {
     let time = [];
